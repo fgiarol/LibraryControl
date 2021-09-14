@@ -12,7 +12,7 @@ namespace LibraryControl.Domain.Entities
             Returned = false;
         }
 
-        public DateTime ReserveDate { get; private set; }
+        public DateTime? ReserveDate { get; private set; }
         public User User { get; private set; }
         public Guid UserId { get; private set; }
         public Book Book { get; private set; }

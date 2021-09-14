@@ -26,17 +26,11 @@ namespace LibraryControl.Domain.Entities
         public IReadOnlyCollection<Author> Authors => _authors.ToArray();
         public IReadOnlyCollection<Reserve> Reserves => _reserves.ToArray();
 
-        public void AddBookGenre(Genre genre)
+        public void LinkGenre(Genre genre)
         {
             _genres.Add(genre);
         }
 
-        public void ReserveBook(Reserve reserve)
-        {
-            //TODO: antes de fazer a reserva, validar se há disponibilidade
-            _reserves.Add(reserve);
-        }
-        
         //TODO: implementar metodo de identificacao de livros iguais para definicao de quantidade
     }
 }

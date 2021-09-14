@@ -4,7 +4,7 @@ using LibraryControl.Domain.Enums;
 
 namespace LibraryControl.Domain.Entities
 {
-    public class Author
+    public class Author : Entity
     {
         private readonly IList<Book> _books;
 
@@ -21,7 +21,7 @@ namespace LibraryControl.Domain.Entities
         public string Description { get; set; }
         public IReadOnlyCollection<Book> Books => _books.ToArray();
         
-        public void AddBook(Book book)
+        public void LinkBook(Book book)
         {
             _books.Add(book);
         }
