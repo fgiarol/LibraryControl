@@ -7,6 +7,7 @@ namespace LibraryControl.Domain.Entities
     {
         private IList<Book> _books;
 
+        public Genre() { }
         public Genre(string name)
         {
             Name = name;

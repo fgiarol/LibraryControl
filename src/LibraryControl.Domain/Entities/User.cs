@@ -8,7 +8,8 @@ namespace LibraryControl.Domain.Entities
     {
         private readonly IList<Book> _books;
         private readonly IList<Reserve> _reserves;
-        
+
+        public User() { }
         public User(string name, Email email, string password, bool admin)
         {
             Name = name;

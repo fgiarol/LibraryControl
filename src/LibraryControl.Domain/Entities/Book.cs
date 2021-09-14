@@ -9,7 +9,8 @@ namespace LibraryControl.Domain.Entities
         private readonly IList<Genre> _genres;
         private readonly IList<Author> _authors;
         private readonly IList<Reserve> _reserves;
-        
+
+        public Book() { }
         public Book(string name, User userCreation, string synopsis)
         {
             Name = name;

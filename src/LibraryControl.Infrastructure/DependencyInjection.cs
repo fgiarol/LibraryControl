@@ -1,5 +1,7 @@
 using LibraryControl.Application.Common.Interfaces;
+using LibraryControl.Application.Common.Interfaces.Repositories;
 using LibraryControl.Infrastructure.Persistence;
+using LibraryControl.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,9 +18,8 @@ namespace LibraryControl.Infrastructure
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-            
-            //TODO: Adicionar resolucao de dependencia dos repositorios
-            
+            services.AddScoped<IBookRepository, BookRepository>();
+
             return services;
         }
     }

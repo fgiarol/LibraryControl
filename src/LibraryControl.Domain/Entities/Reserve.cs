@@ -4,6 +4,7 @@ namespace LibraryControl.Domain.Entities
 {
     public class Reserve : Entity
     {
+        public Reserve() { }
         public Reserve(User user, Book book)
         {
             User = user;
