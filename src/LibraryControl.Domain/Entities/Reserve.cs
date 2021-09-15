@@ -20,7 +20,7 @@ namespace LibraryControl.Domain.Entities
         public Guid BookId { get; private set; }
         public bool Returned { get; private set; }
 
-        public void Return()
+        public void ReturnBook()
         {
             Returned = true;
         }

@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryControl.Infrastructure.Persistence.Repositories
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
         protected readonly ApplicationDbContext Context;
         protected readonly DbSet<TEntity> DbSet;
 
-        protected Repository(ApplicationDbContext context)
+        public Repository(ApplicationDbContext context)
         {
             Context = context;
             DbSet = context.Set<TEntity>();

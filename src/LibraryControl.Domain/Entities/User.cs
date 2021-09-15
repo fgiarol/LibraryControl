@@ -10,12 +10,14 @@ namespace LibraryControl.Domain.Entities
         private readonly IList<Reserve> _reserves;
 
         public User() { }
-        public User(string name, Email email, string password, bool admin)
+        public User(string name, Email email, string password, bool admin = false)
         {
             Name = name;
             Email = email;
             Password = password;
             Admin = admin;
+            _books = new List<Book>();
+            _reserves = new List<Reserve>();
         }
 
         public string Name { get; private set; }
@@ -24,12 +26,7 @@ namespace LibraryControl.Domain.Entities
         public bool Admin { get; private set; }
         public IReadOnlyCollection<Book> Books => _books.ToArray();
         public IReadOnlyCollection<Reserve> Reserves => _reserves.ToArray();
-        
-        public void AddBook(Book book)
-        {
-            _books.Add(book);
-        }
-        
+
         public void ReserveBook(Reserve reserve)
         {
             //TODO: antes de fazer a reserva, validar se há disponibilidade

@@ -11,6 +11,7 @@ namespace LibraryControl.Domain.Entities
         public Genre(string name)
         {
             Name = name;
+            _books = new List<Book>();
         }
         
         public string Name { get; private set; }

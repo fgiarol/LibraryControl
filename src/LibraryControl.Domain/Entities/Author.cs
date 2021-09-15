@@ -14,6 +14,7 @@ namespace LibraryControl.Domain.Entities
             Name = name;
             Age = age;
             Gender = gender;
+            _books = new List<Book>();
         }
 
         public string Name { get; private set; }
@@ -22,7 +23,7 @@ namespace LibraryControl.Domain.Entities
         public string Description { get; set; }
         public IReadOnlyCollection<Book> Books => _books.ToArray();
         
-        public void LinkBook(Book book)
+        public void WriteBook(Book book)
         {
             _books.Add(book);
         }
