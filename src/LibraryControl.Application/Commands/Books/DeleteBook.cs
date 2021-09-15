@@ -4,26 +4,26 @@ using System.Threading.Tasks;
 using LibraryControl.Application.Common.Interfaces.Repositories;
 using MediatR;
 
-namespace LibraryControl.Application.Commmands.Users
+namespace LibraryControl.Application.Commands.Books
 {
-    public static class DeleteUser
+    public static class DeleteBook
     {
         public record Command(Guid Id) : IRequest<Guid>;
         
         public class Handler : IRequestHandler<Command, Guid>
         {
-            private readonly IUserRepository _repository;
+            private readonly IBookRepository _repository;
 
-            public Handler(IUserRepository repository)
+            public Handler(IBookRepository repository)
             {
                 _repository = repository;
             }
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _repository.FindById(request.Id);
+                var book = await _repository.FindById(request.Id);
 
-                if (user is null)
+                if (book is null)
                     return Guid.Empty;
                 
                 await _repository.Remove(request.Id);

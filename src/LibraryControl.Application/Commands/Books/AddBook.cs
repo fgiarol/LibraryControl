@@ -6,11 +6,15 @@ using LibraryControl.Application.Common.Interfaces.Repositories;
 using LibraryControl.Domain.Entities;
 using MediatR;
 
-namespace LibraryControl.Application.Commmands.Books
+namespace LibraryControl.Application.Commands.Books
 {
-    public static class DeleteBook
+    public static class AddBook
     {
-        public record Command(Guid Id) : IRequest<Guid>;
+        public record Command(
+            string Name,
+            string Synopsis,
+            User UserCreation,
+            List<Genre> Genres) : IRequest<Guid>;
         
         public class Handler : IRequestHandler<Command, Guid>
         {
@@ -23,13 +27,16 @@ namespace LibraryControl.Application.Commmands.Books
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var book = await _repository.FindById(request.Id);
-
-                if (book is null)
-                    return Guid.Empty;
+                var book = new Book(
+                    request.Name,
+                    request.UserCreation,
+                    request.Synopsis);
                 
-                await _repository.Remove(request.Id);
-                return request.Id;
+                book.LinkGenres(request.Genres);
+
+                await _repository.Add(book);
+
+                return book.Id;
             }
         }
     }

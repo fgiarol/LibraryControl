@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using LibraryControl.Application.Commmands.Users;
+using LibraryControl.Application.Commands.Users;
 using LibraryControl.Application.Queries.Users;
 using MediatR;
 using Microsoft.AspNetCore.Http;

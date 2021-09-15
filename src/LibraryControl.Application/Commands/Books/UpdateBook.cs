@@ -6,7 +6,7 @@ using LibraryControl.Application.Common.Interfaces.Repositories;
 using LibraryControl.Domain.Entities;
 using MediatR;
 
-namespace LibraryControl.Application.Commmands.Books
+namespace LibraryControl.Application.Commands.Books
 {
     public static class UpdateBook
     {

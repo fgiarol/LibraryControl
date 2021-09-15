@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using LibraryControl.Application.Common.Interfaces.Repositories;
@@ -7,7 +6,7 @@ using LibraryControl.Domain.Entities;
 using LibraryControl.Domain.ValueObjects;
 using MediatR;
 
-namespace LibraryControl.Application.Commmands.Users
+namespace LibraryControl.Application.Commands.Users
 {
     public static class AddUser
     {
