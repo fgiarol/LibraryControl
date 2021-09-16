@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using LibraryControl.Domain.Enums;
 using LibraryControl.Domain.ValueObjects;
 
 namespace LibraryControl.Domain.Entities
@@ -10,12 +11,14 @@ namespace LibraryControl.Domain.Entities
         private readonly IList<Reserve> _reserves;
 
         public User() { }
-        public User(string name, Email email, string password, bool admin)
+        public User(string name, Email email, string password, bool admin = false)
         {
             Name = name;
             Email = email;
             Password = password;
             Admin = admin;
+            _books = new List<Book>();
+            _reserves = new List<Reserve>();
         }
 
         public string Name { get; private set; }
@@ -24,10 +27,20 @@ namespace LibraryControl.Domain.Entities
         public bool Admin { get; private set; }
         public IReadOnlyCollection<Book> Books => _books.ToArray();
         public IReadOnlyCollection<Reserve> Reserves => _reserves.ToArray();
-        
-        public void AddBook(Book book)
+
+        public void Update(string name, Email email, string password)
         {
-            _books.Add(book);
+            Name = name;
+            Email = email;
+            Password = password;
+        }
+        
+        public void AdminUpdate(string name, Email email, string password, bool admin)
+        {
+            Name = name;
+            Email = email;
+            Password = password;
+            Admin = admin;
         }
         
         public void ReserveBook(Reserve reserve)

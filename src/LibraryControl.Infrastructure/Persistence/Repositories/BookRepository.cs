@@ -7,9 +7,7 @@ namespace LibraryControl.Infrastructure.Persistence.Repositories
 {
     public class BookRepository : Repository<Book>, IBookRepository
     {
-        public BookRepository(ApplicationDbContext context) : base(context)
-        {
-        }
+        public BookRepository(ApplicationDbContext context) : base(context) { }
 
         public Task<Book> GetBookWithAuthors(Guid bookId)
         {

@@ -18,8 +18,11 @@ namespace LibraryControl.Infrastructure
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IBookRepository, BookRepository>();
-
+            services.AddScoped<IUserRepository, UserRepository>();
+            
             return services;
         }
     }
