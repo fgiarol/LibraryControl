@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using LibraryControl.Domain.Enums;
 using LibraryControl.Domain.ValueObjects;
 
 namespace LibraryControl.Domain.Entities
@@ -27,6 +28,21 @@ namespace LibraryControl.Domain.Entities
         public IReadOnlyCollection<Book> Books => _books.ToArray();
         public IReadOnlyCollection<Reserve> Reserves => _reserves.ToArray();
 
+        public void Update(string name, Email email, string password)
+        {
+            Name = name;
+            Email = email;
+            Password = password;
+        }
+        
+        public void AdminUpdate(string name, Email email, string password, bool admin)
+        {
+            Name = name;
+            Email = email;
+            Password = password;
+            Admin = admin;
+        }
+        
         public void ReserveBook(Reserve reserve)
         {
             //TODO: antes de fazer a reserva, validar se há disponibilidade

@@ -16,5 +16,10 @@ namespace LibraryControl.Domain.Entities
         
         public string Name { get; private set; }
         public IReadOnlyCollection<Book> Books => _books.ToArray();
+
+        public void Update(string name)
+        {
+            Name = name;
+        }
     }
 }

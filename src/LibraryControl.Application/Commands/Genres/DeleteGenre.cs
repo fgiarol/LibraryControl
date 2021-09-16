@@ -4,30 +4,30 @@ using System.Threading.Tasks;
 using LibraryControl.Application.Common.Interfaces.Repositories;
 using MediatR;
 
-namespace LibraryControl.Application.Commands.Books
+namespace LibraryControl.Application.Commands.Genres
 {
-    public static class DeleteBook
+    public static class DeleteGenre
     {
         public record Command(Guid Id) : IRequest<Guid>;
         
         public class Handler : IRequestHandler<Command, Guid>
         {
-            private readonly IBookRepository _repository;
+            private readonly IGenreRepository _repository;
 
-            public Handler(IBookRepository repository)
+            public Handler(IGenreRepository repository)
             {
                 _repository = repository;
             }
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var book = await _repository.FindById(request.Id);
+                var genre = await _repository.FindById(request.Id);
 
-                if (book is null)
+                if (genre is null)
                     return Guid.Empty;
                 
-                await _repository.Remove(book.Id);
-                return book.Id;
+                await _repository.Remove(genre.Id);
+                return genre.Id;
             }
         }
     }

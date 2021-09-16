@@ -2,13 +2,25 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using LibraryControl.Application.Common.Interfaces.Repositories;
+using LibraryControl.Domain.ValueObjects;
 using MediatR;
 
 namespace LibraryControl.Application.Commands.Users
 {
-    public static class DeleteUser
+    public static class UpdateAdminUser
     {
-        public record Command(Guid Id) : IRequest<Guid>;
+        public record InputModel(
+            string Name,
+            Email Email,
+            string Password,
+            bool Admin);
+            
+        public record Command(
+            Guid Id,
+            string Name,
+            Email Email,
+            string Password,
+            bool Admin) : IRequest<Guid>;
         
         public class Handler : IRequestHandler<Command, Guid>
         {
@@ -26,7 +38,10 @@ namespace LibraryControl.Application.Commands.Users
                 if (user is null)
                     return Guid.Empty;
                 
-                await _repository.Remove(user.Id);
+                user.AdminUpdate(request.Name, request.Email, request.Password, request.Admin);
+
+                await _repository.Update(user);
+
                 return user.Id;
             }
         }
