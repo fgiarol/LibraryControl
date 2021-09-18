@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using LibraryControl.Application.Commands.Users;
+using LibraryControl.Application.Common.Models;
 using LibraryControl.Application.Queries.Users;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -43,8 +44,28 @@ namespace LibraryControl.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] AddUser.Command command)
+        public async Task<IActionResult> Create([FromBody] UserInputModel model)
         {
+            var command = new AddUser.Command(
+                model.Name,
+                model.Email,
+                model.Password);
+            
+            var result = await _mediator.Send(command);
+            return result == Guid.Empty ? Problem(statusCode: StatusCodes.Status400BadRequest) : CreatedAtAction(nameof(GetById), new { id = result }, command);
+        }
+        
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AdminCreate([FromBody] AdminUserInputModel model)
+        {
+            var command = new AddAdminUser.Command(
+                model.Name,
+                model.Email,
+                model.Password,
+                model.Admin);
+
             var result = await _mediator.Send(command);
             return result == Guid.Empty ? Problem(statusCode: StatusCodes.Status400BadRequest) : CreatedAtAction(nameof(GetById), new { id = result }, command);
         }

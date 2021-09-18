@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using LibraryControl.Application.Commands.Authors;
+using LibraryControl.Application.Common.Models;
 using LibraryControl.Application.Queries.Authors;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -43,8 +44,14 @@ namespace LibraryControl.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] AddAuthor.Command command)
+        public async Task<IActionResult> Create([FromBody] AuthorInputModel model)
         {
+            var command = new AddAuthor.Command(
+                model.Name,
+                model.Age,
+                model.Gender,
+                model.Description);
+            
             var result = await _mediator.Send(command);
             return result == Guid.Empty ? Problem(statusCode: StatusCodes.Status400BadRequest) : CreatedAtAction(nameof(GetById), new { id = result }, command);
         }
@@ -52,7 +59,7 @@ namespace LibraryControl.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateAuthor.InputModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody] AuthorInputModel model)
         {
             var command = new UpdateAuthor.Command(
                 id,

@@ -8,12 +8,13 @@ using MediatR;
 
 namespace LibraryControl.Application.Commands.Users
 {
-    public static class AddUser
+    public static class AddAdminUser
     {
         public record Command(
-            string Name,
-            Email Email,
-            string Password) : IRequest<Guid>;
+                string Name,
+                Email Email,
+                string Password,
+                bool Admin) : IRequest<Guid>;
         
         public class Handler : IRequestHandler<Command, Guid>
         {
@@ -29,7 +30,8 @@ namespace LibraryControl.Application.Commands.Users
                 var user = new User(
                     request.Name,
                     request.Email,
-                    request.Password);
+                    request.Password,
+                    request.Admin);
 
                 await _repository.Add(user);
 

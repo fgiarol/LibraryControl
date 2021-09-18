@@ -9,12 +9,6 @@ namespace LibraryControl.Application.Commands.Authors
 {
     public static class UpdateAuthor
     {
-        public record InputModel(
-            string Name,
-            ushort? Age,
-            EGender? Gender,
-            string Description);
-            
         public record Command(
             Guid Id,
             string Name,

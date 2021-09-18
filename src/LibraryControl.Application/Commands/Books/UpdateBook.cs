@@ -10,12 +10,6 @@ namespace LibraryControl.Application.Commands.Books
 {
     public static class UpdateBook
     {
-        public record InputModel(
-            string Name,
-            string Synopsis,
-            User UserCreation,
-            List<Genre> Genres);
-            
         public record Command(
             Guid Id,
             string Name,
