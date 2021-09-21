@@ -55,7 +55,7 @@ namespace LibraryControl.Api.Controllers
             return result == Guid.Empty ? Problem(statusCode: StatusCodes.Status400BadRequest) : CreatedAtAction(nameof(GetById), new { id = result }, command);
         }
         
-        [HttpPost]
+        [HttpPost("AdminUserCreate")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AdminCreate([FromBody] AdminUserInputModel model)

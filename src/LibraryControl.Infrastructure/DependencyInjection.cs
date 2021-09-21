@@ -22,6 +22,8 @@ namespace LibraryControl.Infrastructure
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             
             return services;
         }

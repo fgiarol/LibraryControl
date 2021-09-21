@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using LibraryControl.Domain.Enums;
 using LibraryControl.Domain.ValueObjects;
 
 namespace LibraryControl.Domain.Entities
