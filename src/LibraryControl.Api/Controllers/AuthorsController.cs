@@ -1,16 +1,16 @@
 using System;
 using System.Threading.Tasks;
 using LibraryControl.Application.Commands.Authors;
-using LibraryControl.Application.Common.Models;
 using LibraryControl.Application.Queries.Authors;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Request = LibraryControl.Api.Contracts.Requests;
 
 namespace LibraryControl.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class AuthorsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -44,7 +44,7 @@ namespace LibraryControl.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] AuthorInputModel model)
+        public async Task<IActionResult> Create([FromBody] Request.AuthorModel model)
         {
             var command = new AddAuthor.Command(
                 model.Name,
@@ -59,7 +59,7 @@ namespace LibraryControl.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] AuthorInputModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Request.AuthorModel model)
         {
             var command = new UpdateAuthor.Command(
                 id,

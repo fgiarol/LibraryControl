@@ -2,15 +2,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using LibraryControl.Application.Common.Interfaces.Repositories;
-using LibraryControl.Domain.Enums;
 using MediatR;
 
 namespace LibraryControl.Application.Commands.Genres
 {
     public static class UpdateGenre
     {
-        public record InputModel(string Name);
-            
         public record Command(Guid Id, string Name) : IRequest<Guid>;
         
         public class Handler : IRequestHandler<Command, Guid>

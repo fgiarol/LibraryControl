@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using LibraryControl.Application.Commands.Users;
-using LibraryControl.Application.Common.Models;
 using LibraryControl.Application.Queries.Users;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Request = LibraryControl.Api.Contracts.Requests;
 
 namespace LibraryControl.Api.Controllers
 {
@@ -44,7 +44,7 @@ namespace LibraryControl.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] UserInputModel model)
+        public async Task<IActionResult> Create([FromBody] Request.UserModel model)
         {
             var command = new AddUser.Command(
                 model.Name,
@@ -58,7 +58,7 @@ namespace LibraryControl.Api.Controllers
         [HttpPost("AdminUserCreate")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AdminCreate([FromBody] AdminUserInputModel model)
+        public async Task<IActionResult> AdminCreate([FromBody] Request.AdminUserModel model)
         {
             var command = new AddAdminUser.Command(
                 model.Name,
@@ -73,13 +73,14 @@ namespace LibraryControl.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateUser.InputModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Request.UserModel model)
         {
+            var (name, email, password) = model;
             var command = new UpdateUser.Command(
                 id,
-                model.Name,
-                model.Email,
-                model.Password);
+                name,
+                email,
+                password);
             
             var result = await _mediator.Send(command);
             return result != Guid.Empty ? NoContent() : NotFound();

@@ -1,8 +1,8 @@
 using LibraryControl.Domain.Enums;
 
-namespace LibraryControl.Application.Common.Models
+namespace LibraryControl.Api.Contracts.Requests
 {
-    public record AuthorInputModel(
+    public record AuthorModel(
         string Name,
         ushort? Age,
         EGender? Gender,

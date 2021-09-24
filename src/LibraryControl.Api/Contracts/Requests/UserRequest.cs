@@ -1,13 +1,13 @@
 using LibraryControl.Domain.ValueObjects;
 
-namespace LibraryControl.Application.Common.Models
+namespace LibraryControl.Api.Contracts.Requests
 {
-    public record UserInputModel(
+    public record UserModel(
         string Name,
         Email Email,
         string Password);
 
-    public record AdminUserInputModel(
+    public record AdminUserModel(
         string Name,
         Email Email,
         string Password,

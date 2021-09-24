@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using LibraryControl.Domain.Entities;
 
-namespace LibraryControl.Application.Common.Models
+namespace LibraryControl.Api.Contracts.Requests
 {
-    public record BookInputModel(
+    public record BookModel(
         string Name,
         string Synopsis,
         User UserCreation,

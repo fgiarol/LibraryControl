@@ -9,11 +9,6 @@ namespace LibraryControl.Application.Commands.Users
 {
     public static class UpdateUser
     {
-        public record InputModel(
-            string Name,
-            Email Email,
-            string Password);
-            
         public record Command(
             Guid Id,
             string Name,

@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using LibraryControl.Application.Commands.Books;
-using LibraryControl.Application.Common.Models;
 using LibraryControl.Application.Queries.Books;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Request = LibraryControl.Api.Contracts.Requests;
 
 namespace LibraryControl.Api.Controllers
 {
@@ -44,7 +44,7 @@ namespace LibraryControl.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] BookInputModel model)
+        public async Task<IActionResult> Create([FromBody] Request.BookModel model)
         {
             var command = new AddBook.Command(
                 model.Name,
@@ -59,7 +59,7 @@ namespace LibraryControl.Api.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] BookInputModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Request.BookModel model)
         {
             var command = new UpdateBook.Command(
                 id,
