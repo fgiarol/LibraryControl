@@ -33,7 +33,7 @@ namespace LibraryControl.Application.Commands.Authors
                     request.Gender,
                     request.Description);
 
-                await _repository.Add(author);
+                await _repository.AddAsync(author);
 
                 return author.Id;
             }

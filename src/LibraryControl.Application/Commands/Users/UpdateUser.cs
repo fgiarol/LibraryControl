@@ -26,14 +26,14 @@ namespace LibraryControl.Application.Commands.Users
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _repository.FindById(request.Id);
+                var user = await _repository.FindByIdAsync(request.Id);
 
                 if (user is null)
                     return Guid.Empty;
                 
                 user.Update(request.Name, request.Email, request.Password);
 
-                await _repository.Update(user);
+                await _repository.UpdateAsync(user);
 
                 return user.Id;
             }

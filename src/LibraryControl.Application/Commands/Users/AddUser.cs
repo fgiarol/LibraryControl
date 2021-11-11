@@ -5,6 +5,7 @@ using LibraryControl.Application.Common.Interfaces.Repositories;
 using LibraryControl.Domain.Entities;
 using LibraryControl.Domain.ValueObjects;
 using MediatR;
+using SecureIdentity.Password;
 
 namespace LibraryControl.Application.Commands.Users
 {
@@ -13,7 +14,8 @@ namespace LibraryControl.Application.Commands.Users
         public record Command(
             string Name,
             Email Email,
-            string Password) : IRequest<Guid>;
+            string Password,
+            bool Admin = false) : IRequest<Guid>;
         
         public class Handler : IRequestHandler<Command, Guid>
         {
@@ -29,9 +31,10 @@ namespace LibraryControl.Application.Commands.Users
                 var user = new User(
                     request.Name,
                     request.Email,
-                    request.Password);
+                    PasswordHasher.Hash(request.Password),
+                    request.Admin);
 
-                await _repository.Add(user);
+                await _repository.AddAsync(user);
 
                 return user.Id;
             }

@@ -21,14 +21,14 @@ namespace LibraryControl.Application.Commands.Genres
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var genre = await _repository.FindById(request.Id);
+                var genre = await _repository.FindByIdAsync(request.Id);
 
                 if (genre is null)
                     return Guid.Empty;
                 
                 genre.Update(request.Name);
 
-                await _repository.Update(genre);
+                await _repository.UpdateAsync(genre);
 
                 return genre.Id;
             }

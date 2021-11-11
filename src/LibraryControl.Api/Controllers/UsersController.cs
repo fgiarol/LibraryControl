@@ -49,23 +49,9 @@ namespace LibraryControl.Api.Controllers
             var command = new AddUser.Command(
                 model.Name,
                 model.Email,
-                model.Password);
-            
-            var result = await _mediator.Send(command);
-            return result == Guid.Empty ? Problem(statusCode: StatusCodes.Status400BadRequest) : CreatedAtAction(nameof(GetById), new { id = result }, command);
-        }
-        
-        [HttpPost("AdminUserCreate")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AdminCreate([FromBody] Request.AdminUserModel model)
-        {
-            var command = new AddAdminUser.Command(
-                model.Name,
-                model.Email,
                 model.Password,
                 model.Admin);
-
+            
             var result = await _mediator.Send(command);
             return result == Guid.Empty ? Problem(statusCode: StatusCodes.Status400BadRequest) : CreatedAtAction(nameof(GetById), new { id = result }, command);
         }
@@ -75,12 +61,11 @@ namespace LibraryControl.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put(Guid id, [FromBody] Request.UserModel model)
         {
-            var (name, email, password) = model;
             var command = new UpdateUser.Command(
                 id,
-                name,
-                email,
-                password);
+                model.Name,
+                model.Email,
+                model.Password);
             
             var result = await _mediator.Send(command);
             return result != Guid.Empty ? NoContent() : NotFound();

@@ -34,7 +34,7 @@ namespace LibraryControl.Application.Commands.Books
                 
                 book.LinkGenres(request.Genres);
 
-                await _repository.Add(book);
+                await _repository.AddAsync(book);
 
                 return book.Id;
             }

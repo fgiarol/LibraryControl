@@ -28,7 +28,7 @@ namespace LibraryControl.Application.Commands.Books
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var book = await _repository.FindById(request.Id);
+                var book = await _repository.FindByIdAsync(request.Id);
 
                 if (book is null)
                     return Guid.Empty;
@@ -39,7 +39,7 @@ namespace LibraryControl.Application.Commands.Books
                 
                 book.LinkGenres(request.Genres);
                 
-                await _repository.Update(book);
+                await _repository.UpdateAsync(book);
 
                 return book.Id;
             }

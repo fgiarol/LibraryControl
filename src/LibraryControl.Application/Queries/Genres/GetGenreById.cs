@@ -27,7 +27,7 @@ namespace LibraryControl.Application.Queries.Genres
             
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var genre = await _repository.FindById(request.Id);
+                var genre = await _repository.FindByIdAsync(request.Id);
                 return _mapper.Map<Response>(genre);
             }
         }

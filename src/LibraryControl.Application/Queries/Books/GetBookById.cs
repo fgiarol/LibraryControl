@@ -26,7 +26,7 @@ namespace LibraryControl.Application.Queries.Books
             
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var book = await _repository.FindById(request.Id);
+                var book = await _repository.FindByIdAsync(request.Id);
                 return _mapper.Map<Response>(book);
             }
         }

@@ -27,7 +27,7 @@ namespace LibraryControl.Application.Queries.Authors
             
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var author = await _repository.FindById(request.Id);
+                var author = await _repository.FindByIdAsync(request.Id);
                 return _mapper.Map<Response>(author);
             }
         }

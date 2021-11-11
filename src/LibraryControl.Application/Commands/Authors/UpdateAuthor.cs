@@ -27,14 +27,14 @@ namespace LibraryControl.Application.Commands.Authors
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var author = await _repository.FindById(request.Id);
+                var author = await _repository.FindByIdAsync(request.Id);
 
                 if (author is null)
                     return Guid.Empty;
                 
                 author.Update(request.Name, request.Age, request.Gender, request.Description);
 
-                await _repository.Update(author);
+                await _repository.UpdateAsync(author);
 
                 return author.Id;
             }

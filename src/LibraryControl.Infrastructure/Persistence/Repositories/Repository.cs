@@ -20,46 +20,46 @@ namespace LibraryControl.Infrastructure.Persistence.Repositories
             DbSet = context.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> SearchAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
-        public virtual async Task<List<TEntity>> FindAll()
+        public virtual async Task<List<TEntity>> FindAllAsync()
         {
             return await DbSet.AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task<TEntity> FindById(Guid id)
+        public virtual async Task<TEntity> FindByIdAsync(Guid id)
         {
             return await DbSet.FindAsync(id);
         }
 
-        public virtual async Task<int> Add(TEntity entity)
+        public virtual async Task<int> AddAsync(TEntity entity)
         {
             DbSet.Add(entity);
-            return await SaveChanges();
+            return await SaveChangesAsync();
         }
 
-        public virtual async Task AddRange(IEnumerable<TEntity> entities)
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             DbSet.AddRange(entities);
-            await SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public virtual async Task<int> Update(TEntity entity)
+        public virtual async Task<int> UpdateAsync(TEntity entity)
         {
             DbSet.Update(entity);
-            return await SaveChanges();
+            return await SaveChangesAsync();
         }
 
-        public virtual async Task Remove(Guid id)
+        public virtual async Task RemoveAsync(Guid id)
         {
             DbSet.Remove(new TEntity { Id = id });
-            await SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public async Task<int> SaveChanges()
+        public async Task<int> SaveChangesAsync()
         {
             return await Context.SaveChangesAsync();
         }

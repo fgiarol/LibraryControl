@@ -25,7 +25,7 @@ namespace LibraryControl.Application.Commands.Genres
             {
                 var genre = new Genre(request.Name);
 
-                await _repository.Add(genre);
+                await _repository.AddAsync(genre);
 
                 return genre.Id;
             }

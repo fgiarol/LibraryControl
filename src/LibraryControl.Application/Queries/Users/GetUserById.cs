@@ -27,7 +27,7 @@ namespace LibraryControl.Application.Queries.Users
             
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _repository.FindById(request.Id);
+                var user = await _repository.FindByIdAsync(request.Id);
                 return _mapper.Map<Response>(user);
             }
         }

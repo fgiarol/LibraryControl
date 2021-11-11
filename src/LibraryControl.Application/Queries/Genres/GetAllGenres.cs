@@ -26,7 +26,7 @@ namespace LibraryControl.Application.Queries.Genres
             
             public async Task<List<Response>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var genres = await _repository.FindAll();
+                var genres = await _repository.FindAllAsync();
                 return _mapper.Map<List<Response>>(genres);
             }
         }

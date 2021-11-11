@@ -21,12 +21,12 @@ namespace LibraryControl.Application.Commands.Users
 
             public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _repository.FindById(request.Id);
+                var user = await _repository.FindByIdAsync(request.Id);
 
                 if (user is null)
                     return Guid.Empty;
                 
-                await _repository.Remove(user.Id);
+                await _repository.RemoveAsync(user.Id);
                 return user.Id;
             }
         }
