@@ -1,7 +1,9 @@
 using System;
 using System.Text;
 using LibraryControl.Application;
+using LibraryControl.Application.Common.Interfaces;
 using LibraryControl.Application.Common.Options.Security;
+using LibraryControl.Application.Common.Services;
 using LibraryControl.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +32,8 @@ namespace LibraryControl.Api
 
             services.AddSingleton(jwtSettings);
 
+            services.AddScoped<IIdentityService, IdentityService>();
+            
             services.AddControllers();
 
             services.AddAuthentication(x =>

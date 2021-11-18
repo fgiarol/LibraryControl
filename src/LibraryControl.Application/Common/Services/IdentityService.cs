@@ -16,9 +16,9 @@ namespace LibraryControl.Application.Common.Services
             _tokenService = tokenService;
         }
 
-        public async Task<AuthenticationResult> RegisterAsync(string email, string password)
+        public async Task<AuthenticationResult> LoginAsync(string emailAddress, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x=> x.Email.Address == email);
+            var user = await _context.Users.FirstOrDefaultAsync(x=> x.Email.Address == emailAddress);
             var hash = PasswordHasher.Hash(password);
             var isValid = PasswordHasher.Verify(hash, user.Password);
 
@@ -28,17 +28,15 @@ namespace LibraryControl.Application.Common.Services
 
                 return new AuthenticationResult
                 {
-                    Token = string.Empty,
                     Success = false,
-                    ErrorMessage = "Invalid username or password"
+                    Errors = new[] {"Invalid username or password"}
                 };
             }
 
             return new AuthenticationResult
             {
                 Token = _tokenService.GenerateToken(user),
-                Success = true,
-                ErrorMessage = string.Empty
+                Success = true
             };
         }
     }
