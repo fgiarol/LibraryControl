@@ -2,9 +2,12 @@ using System;
 using System.Threading.Tasks;
 using LibraryControl.Api.Contracts.V1;
 using LibraryControl.Api.Contracts.V1.Requests;
+using LibraryControl.Api.Contracts.V1.Responses;
 using LibraryControl.Application.Commands.Users;
+using LibraryControl.Application.Common.Interfaces;
 using LibraryControl.Application.Queries.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,20 +17,24 @@ namespace LibraryControl.Api.Controllers.V1
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IIdentityService _identityService;
 
-        public UsersController(IMediator mediator)
+        public UsersController(IMediator mediator, IIdentityService identityService)
         {
             _mediator = mediator;
+            _identityService = identityService;
         }
         
-        [HttpGet(ApiRoutes.Users.GetAll)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAll()
+        [HttpPost(ApiRoutes.Users.Login)]
+        [AllowAnonymous]
+        public async Task<IActionResult> Authenticate([FromBody] UserAuthenticationRequest request)
         {
-            var query = new GetAllUsers.Query();
-            var result = await _mediator.Send(query);
+            var authResponse = await _identityService.LoginAsync(request.Email.Address, request.Password);
 
-            return Ok(result);
+            if (!authResponse.Success)
+                return BadRequest(new AuthFailedResponse(authResponse.Errors));
+
+            return Ok(new AuthSuccessResponse(authResponse.Token));
         }
 
         [HttpGet(ApiRoutes.Users.Get)]
